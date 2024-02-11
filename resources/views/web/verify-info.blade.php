@@ -18,7 +18,7 @@
                     <div class="card-header">
                         Renseignez les informations présentes sur l'attestation
                     </div>
-                    <form action="{{ route('result.info') }}" method="GET">
+                    <form action="{{ route('result.info') }}" id="resultForm" method="GET">
                         @csrf
                         <div class="card-body">
                             <div class="row mb-4">
@@ -63,12 +63,13 @@
 
                                 <small><b> Saisissez la somme des deux nombres en chiffres </b></small>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <input type="text" required placeholder="Somme en Chiffres" class="form-control">
+                                    <input type="text" id="inputValue" required placeholder="Somme en Chiffres" class="form-control">
+                                    <span class="error-input" style="color: #c20707;"></span>
                                 </div>
                             </div>
 
                             <div class="mt-2">
-                            <button class="btn btn-primary" type="submit">
+                            <button id="mainSubmitBtn" class="btn btn-primary" type="button">
                                 <span class="fa fa-search text-white"></span>
                                 <span> Rechercher l'attestation</span>
                             </button>
@@ -87,21 +88,39 @@
 @endsection
 @section('footer_script')
 
+<script>
+    $("#mainSubmitBtn").click(function(){
+        const src = $(".captcha-img").attr("src");
+        const imageName = parseInt(src.match(/\w+(?=\.png$)/)[0]);
+        const inputValue = parseInt($("#inputValue").val());
+        // alert(jQuery.type(inputValue));
+        // return;
+        if(imageName === inputValue){
+            $("#resultForm").submit();
+            return;
+        }else{
+            // alert("Veuillez saisir la somme des deux nombres en chiffres");
+            $(".error-input").html("Veuillez saisir la somme des deux nombres en chiffres !");
+            return;
+        }
+
+    })
+</script>
 
 <script>
+
     (function($){
 
     $.fn.recaptcha = function(options) {
 
         //Random Recaptcha Images
-        var randomImageArr = ["{{ asset('public/assets/images/captcha2.png') }}", "{{ asset('public/assets/images/captcha3.png') }}", "{{ asset('public/assets/images/captcha4.png') }}",
-                            "{{ asset('public/assets/images/captcha5.png') }}", "{{ asset('public/assets/images/captcha6.png') }}", "{{ asset('public/assets/images/captcha7.png') }}",
-                            "{{ asset('public/assets/images/captcha8.png') }}", "{{ asset('public/assets/images/captcha9.png') }}", "{{ asset('public/assets/images/captcha10.png') }}",
-                            "{{ asset('public/assets/images/captcha11.png') }}", "{{ asset('public/assets/images/captcha12.png') }}", "{{ asset('public/assets/images/captcha13.png') }}",
-                            "{{ asset('public/assets/images/captcha14.png') }}", "{{ asset('public/assets/images/captcha15.png') }}", "{{ asset('public/assets/images/captcha16.png') }}",
-                            "{{ asset('public/assets/images/captcha17.png') }}", "{{ asset('public/assets/images/captcha18.png') }}", "{{ asset('public/assets/images/captcha19.png') }}",
-                            "{{ asset('public/assets/images/captcha20.png') }}", "{{ asset('public/assets/images/captcha21.png') }}", "{{ asset('public/assets/images/captcha22.png') }}",
-                            "{{ asset('public/assets/images/captcha23.png') }}"
+        var randomImageArr = ["{{ asset('public/assets/images/7.png') }}", "{{ asset('public/assets/images/30.png') }}", "{{ asset('public/assets/images/17.png') }}",
+                            "{{ asset('public/assets/images/13.png') }}", "{{ asset('public/assets/images/4.png') }}", "{{ asset('public/assets/images/9.png') }}",
+                            "{{ asset('public/assets/images/26.png') }}", "{{ asset('public/assets/images/14.png') }}", "{{ asset('public/assets/images/12.png') }}",
+                            "{{ asset('public/assets/images/25.png') }}", "{{ asset('public/assets/images/6.png') }}",
+                            "{{ asset('public/assets/images/11.png') }}", "{{ asset('public/assets/images/18.png') }}",
+                            "{{ asset('public/assets/images/28.png') }}", "{{ asset('public/assets/images/23.png') }}", "{{ asset('public/assets/images/19.png') }}",
+                            "{{ asset('public/assets/images/1.png') }}", "{{ asset('public/assets/images/15.png') }}", "{{ asset('public/assets/images/20.png') }}"
                         ];
 
         var randomImage = randomImageArr[Math.floor(Math.random() * randomImageArr.length)];

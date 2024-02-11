@@ -16,6 +16,8 @@
                 <h5 class="text-primary result-head">Consultation et vérification des résultats du TCF</h5>
                 <div class="bg-warning p-3" style="border-radius: 5px; color: #664d03;">
                     Résultats pour le « <b>TCF Canada - Test de connaissance du français pour le Canada </b> » du <b>{{ \Carbon\Carbon::parse($user->date_of_entry)->format('d/m/Y') }}</b> pour le candidat n°<b>{{ $user->candidate_number }}</b>. <br>
+
+                    Résultats pour le « <b>TCF Canada - Test de connaissance du français pour le Canada </b> » du <b>{{ \Carbon\Carbon::parse($user->date_of_entry)->format('d/m/Y') }}</b> pour le candidat n°<b>{{ $user->candidate_number }}</b>. <br>
                     <span>Nom : <b class="text-uppercase">{{ $user->name }}</b> </span><br>
                     <span> Prénom : <b class="text-uppercase">{{ $user->first_name }}</b> </span>
                 </div>
